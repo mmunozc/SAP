@@ -1,0 +1,84 @@
+LDA                 0011               3
+ADD                1100               C
+SUB                 1010               A
+MUL                0101               5
+DIV                 1001               9
+CALL               1110               E
+GOTO              1101               D
+RETURN          1011               B
+OPC3(EXP        0111               7
+OPC1              1000               8
+OPC2              0100               4
+INC                 0010               2
+DEC                0001               1
+MOD              0110               6 
+OUT               0000               0 
+HLT                1111               F
+
+
+___________________________________________________________________________________________________
+
+
+Pograma 1: DECR (((4*3)/2)-5-1) = -1
+
+RF  4
+RE  3
+RD  2
+RC  5
+RB  1
+
+
+LDA   RF       3F      0011  1111
+MUL  RE       5E      0101  1110
+DIV    RD      9D     1001  1101
+SUB   RC       AC    1010   1100 
+SUB   RB       AB     1010   1011
+DECR            01      0001   
+OUT              00      0000
+HLT               0F      1111
+
+
+Pograma 2:  Ejecuto OPC2 con el resultado de (5+3)-1 = 7 y OPC1 = 0
+
+
+RF  5
+RE  3
+RD 1
+
+LDA   RF       3F      0011  1111
+MUL  RE       5E      0101  1110
+SUB   RD      AD     1010  1101
+OPC2            04      0100 
+OUT              00      0000
+OPC1            08      1000
+OUT              00      0000
+HLT               0F      1111
+
+
+Programa 3: INCR( 2^3) =7
+
+RF  2
+
+LDA   RF            3F      0011  1111
+OPC3(EXP) 3     73       0111  0011
+INC                    02      0010
+OUT                   00      0000
+HLT                    0F      1111
+
+
+
+Programa 4: (3*2)%7 = 6
+
+RF   3
+RE   2
+RD  7
+
+
+LDA    RF          3F      0011  1111
+CALL   R3         E3      1110   0011
+MUL    RE         5E      0101  1110
+RETURN           B0      1011
+GOTO  R5         D5     1101   1010
+MOD   RD        6D      0110   1101
+OUT                 00      0000   
+HLT                  0F      1111
